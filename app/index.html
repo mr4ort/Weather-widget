@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="ru"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>weather</title>
+
+  <link rel="stylesheet" type="text/html" href="libs/bootstrap.min.css">
+
+  <link rel="stylesheet" href="css/style.min.css">
+</head>
+<body ng-app='widget' ng-controller='mainCtrl'>
+
+  <section class="inputs">
+    <div class="container">
+      <div class="row">
+        <form name="form">
+          <input type="text" ng-model="city" placeholder="Введите город" required/>
+          <button ng-click="add()">add</button>
+          <p class="err-msg" ng-show="err">{{errorMsg}}</p>
+        </form>
+    </div>
+    </div>
+  </section>
+  <section class="view">
+    <div class="container">
+      <div class="row">
+        <ul class="list">
+          <li ng-repeat="x in locations" ng-click="showWeather($index)" ng-class="{active: $index == activeTab}">{{x}} <span ng-click="removeItem($index)">x</span></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="show-weather"  ng-show="locations.length" ng-init="showWeather()">
+
+          <table>
+            <tr>
+              <td><img ng-src="http://openweathermap.org/img/w/{{view.weather[0].icon}}.png" alt="{{view.weather[0].description}}"/></td>
+              <td>{{view.weather[0].description}}</td>
+            </tr>
+            <tr>
+              <td>Темпиратура:  {{trasnfrmFromK(view.main.temp)}}&deg</td>
+              <td>Влажность:  {{view.main.humidity}}%</td>
+            </tr>
+            <tr>
+              <td>Скорость ветра: {{view.wind.speed | number:0}}m/c</td>
+              <td>Направление ветра: {{view.wind.deg | number:0}}&deg</td>
+            </tr>
+          </table>
+          <!--{{view }}-->
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- Angular.js core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="libs/angular.min.js"></script>
+<!--Angular.js Route-->
+<script src="libs/angular-route.min.js"></script>
+<!--Angular.js Resource-->
+<script src="libs/angular-resource.min.js"></script>
+
+<script src="libs/angular-local-storage.min.js"></script>
+
+<script src="js/controllers.js"></script>
+
+</body>
+</html>
